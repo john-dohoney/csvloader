@@ -3,12 +3,12 @@ csvloader
 
 Web App for loading CSV files into UserGrid or Apigee App Services
 
-Set-Up
+###Set-Up<br/>
 Make sure you have node.js installed, and be sure it is in your path
-  which node
+>  which node
 
 Clone this app with the following command:
-  git clone https://github.com/john-dohoney/csvloader.git
+>  git clone https://github.com/john-dohoney/csvloader.git
 
 Make sure the directory permissions will work, as the public/uploads directory will story the uploaded 
 CSV file (e.g you set a umask)
