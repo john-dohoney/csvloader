@@ -1,0 +1,184 @@
+doctype 5
+html
+    head
+        title CSV View
+        link(rel='stylesheet', href='/stylesheets/style.css')
+        link(rel='stylesheet', href='/javascripts/jsoneditor/jsoneditor.css')
+        link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+        script(src='http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js')
+        script(src='/javascripts/bootstrap.min.js')
+        script(src='/javascripts/jsoneditor/jsoneditor.js')
+        script(src='/javascripts/jsoneditor/lib/ace/ace.js')
+        script(src='/javascripts/javascripts/apigee.min.js')
+        script.
+            var editor             = null;
+            var uploadData         = null;
+            var collection         = null;
+            var recordsAttempted   = 0;
+
+            function createEntries(theCollection, data)
+            {
+                for(var i = 0; i < data.length; i++)
+                {
+                    recordsAttempted += 1;
+                    theCollection.addEntity(data[i], function (error, response)
+                    {
+                        if (error) {
+                            console.log(error);
+                        }
+                    });
+                }
+             }
+
+
+            function submitData(obj)
+            {
+                var mydata         = editor.get();
+                var organization   = document.getElementById("myorg").value;
+                var application    = document.getElementById("myapplication").value;
+                collection         = document.getElementById("mycollection").value;
+                var username       = document.getElementById("mylogin").value;
+                var password       = document.getElementById("mypassword").value;
+                var loginNecessary = document.getElementById('loginRequired').checked;
+
+                try
+                  {
+                    // Login into App Services
+                    var myClient = new Apigee.Client({
+                        orgName: organization,
+                        appName: application
+                    });
+
+                    console.log("Client created");
+
+                    if(loginNecessary)
+                    {
+                        myClient.login(username, password, function (err)
+                        {
+                            if (err)
+                            {
+                                alert("ERROR logging in, please check credentials and try again");
+                            }
+                            else
+                            {
+                                var token = client.token;
+                                myClient.getLoggedInUser(function(err, data, user)
+                                {
+                                    if(err) {
+                                        alert("Error saving OAuth token");
+                                    } else {
+                                        username = user.get('username');
+                                    }
+                                });
+                            }
+                        });
+                        console.log("Logged in");
+                    }
+
+                    // Create a collection object that will be used to hold the converted CSV uploaded.
+                    myCollection = new Apigee.Collection( { "client": myClient, "type": collection } );
+
+                    console.log("Created " + collection);
+
+                    // Load the elements into the collection specified.
+                    createEntries(myCollection, mydata);
+
+                  }
+                  catch(err)
+                  {
+                    alert(err);
+                  }
+            }
+
+            function togglePasswordFieldClicked()
+            {
+                    var passwordField = document.getElementById('mypassword');
+                    var value = passwordField.value;
+                    if(passwordField.type == 'password') {
+                        passwordField.type = 'text';
+                    }
+                    else {
+                        passwordField.type = 'password';
+                    }
+                    passwordField.value = value;
+            }
+
+    body
+
+    .container-narrow
+        .masthead
+            ul.nav.nav-pills.pull-right
+                li.active
+                    a(href='/') Home
+                li
+                    a(href='/about') About
+                li
+                    a(href='/contact') Contact
+        h3.muted CSV Upload Utility
+        hr
+        - local_data2 = stuff
+        input(type='hidden', value=local_data2)#myLocalStuff
+        .well
+            .row
+                h4 Converted CSV - Upload Preview
+
+                hr
+                .well-sm
+
+                    div.col-lg-6
+                        h3 Hello #{username}!
+                        br
+                        p The next step in the process of uploading your CSV is to review and correct any data, before logging into the Apigee Edge platform.  Please make final edits to your collection information before importing. All data will be read from this page and used for login and upload into the requested collection.
+                        br
+
+                        label Organization Name
+                        - local_data = organization
+                        input(type='text', value=local_data)#myorg
+
+                        br
+
+                        label Application Name
+                        - local_data1 = application
+                        input(type='text', value=local_data1)#myapplication
+
+                        br
+
+                        label Collection Name
+                        - local_data2 = collection
+                        input(type='text', value=local_data2)#mycollection
+
+                        br
+
+                        label User Name
+                        - local_data3 = username
+                        input(type='text', value=local_data3)#mylogin
+
+                        br
+
+                        label Password
+                        - local_data4 = password
+                        input(type='password', value=local_data4)#mypassword
+                        button.btn.btn-xs.btn-success(type='submit',onclick="togglePasswordFieldClicked()") Toggle
+                        br
+                        label Requires Login for application
+                        input(type="checkbox", id="loginRequired", checked="unchecked")
+                    div.col-lg-6(style="padding-top: 7%")
+                        label JSON Collection
+                        div#jsoneditor(style="width: 100%; height: 300px;")
+                        br
+                        button.btn.btn-medium.btn-success(type='submit',onclick="submitData(this)") Submit Data
+
+                        script(type='text/javascript').
+
+                            var container = document.getElementById('jsoneditor');
+                            var options   = {
+                                    mode: 'code',
+                                    modes: ['code', 'tree'], // allowed modes
+                                    error: function (err) {
+                                    alert(err.toString());
+                                  }
+                                };
+                             var csvdata = JSON.parse( document.getElementById('myLocalStuff').value ) ;
+                             editor      = new jsoneditor.JSONEditor(container, options, csvdata);
+
+

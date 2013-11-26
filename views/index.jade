@@ -1,0 +1,48 @@
+extends layout
+block content
+      include messages
+      .page-header.well
+        .span6(style="text-align:center")
+          .well
+            h4 Enter the data below to upload your CSV into Apigee Edge or UserGrid
+            br
+           .panel-body
+            form(action='/csvupload', method='post', enctype="multipart/form-data", name="myForm")
+              .control-group
+                  label.control-label(for='message_organization') Organization Name
+                  .controls
+                      input#message_organization.input-xxlarge(type='text', placeholder='Organization', name='message[organization]', value=message.organization)
+              .control-group
+                  label.control-label(for='message_application') Application Name
+                  .controls
+                      input#message_application.input-xxlarge(type='text', placeholder='Application', name='message[application]', value=message.application)
+              .control-group
+                  label.control-label(for='message_collection') Collection Name
+                  .controls
+                      input#message_collection.input-xxlarge(type='text', placeholder='Collection', name='message[collection]', value=message.collection)
+              .control-group
+                  label.control-label(for='message_username') User Name
+                  .controls
+                      input#message_username.input-xxlarge(type='text', placeholder='UserName', name='message[username]', value=message.username)
+              .control-group
+                  label.control-label(for='message_password') Password
+                  .controls
+                      input#message_password.input-xxlarge(type='password', placeholder='Password', name='message[password]', value=message.password)
+              .control-group
+                  label(id='labelcsvfile') CSV File path
+
+              .div.myBtn(onclick="getFile()")
+
+                   img(src="/img/upload.jpg")
+
+              .div(style='height: 0px;width: 0px; overflow:hidden')
+                input(id='upfile', type='file', name="csvfile", value='upload', onchange='fileChange(this)')
+
+              br
+              button.btn.btn-medium.btn-success(type='submit') Verify CSV Data
+              hr
+
+              .footer
+                  br
+                  p &copy; Apigee SE Team - San Francisco Hackathon November, 2013
+

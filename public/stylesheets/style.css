@@ -1,0 +1,11 @@
+ul.errors { margin-top: 10px }
+
+body
+{padding-top: 20px;
+    padding-bottom: 40px}
+
+.container-narrow {
+    margin: 0 auto;
+    max-width: 900px
+
+}

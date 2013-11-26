@@ -1,0 +1,24 @@
+{
+  "name": "CSVLoader",
+  "description": "CSV Import WebApp for Apigee App Services and Usergrid",
+  "version": "0.6.0",
+  "homepage": "https://github.com/johndohoney/csvloader",
+  "author": {
+        "name": "John Dohoney",
+        "email": "john.dohoney@gmail.com"
+  },
+  "repository": {
+        "type": "git",
+        "url": "https://github.com/john-dohoney/csvloader.git"
+  },
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "3.4.4",
+    "jade": "*",
+    "validator": "*",
+    "fast-csv": "*"
+  }
+}
