@@ -38,7 +38,7 @@ seem to cause an issue loading. So, for now, either remove those records, or add
 
 ###Known Issues:<br/>
 
-The editor needs to operate in "code" mode, the tree mode does not seem to work properly. If you need to play around, and the editor gets in a bad state, just re-load the page.  You will lose your edits, as it re-reads the CSV file. You can have a public account or your account can have users.
+The editor needs to operate in "code" mode, the tree mode does not seem to work properly. If you need to play around, and the editor gets in a bad state, just re-load the page.  You will lose your edits, as it re-reads the CSV file.
 
 ###Next version:<br/>
 
