@@ -34,12 +34,11 @@ This will "JSONLint" just fine, but will not load.  From testing, elements like:
 <pre>
 		"": "",
 </pre>
-seem to cause an issue loading. So, for now, either remove those records, or add some data to 
-load the complete document.
+seem to cause an issue loading. So, for now, either remove those records, or add some data to load the complete document. You can have a public account or your account can have users.  If you require a login, be sure to check the login required check box. I always fat-finger my password, so the ability to toggle the password to plain text was added if there is a complaint about credentials.
 
 ###Known Issues:<br/>
 
-The editor needs to operate in "code" mode, the tree mode does not seem to work properly. If you need to play around, and the editor gets in a bad state, just re-load the page.  You will lose your edits, as it re-reads the CSV file. You can have a public account or your account can have users.  If you require a login, be sure to check the login required check box. I always jack up my password, to the ability to toggle the password to plain text was added if there is a complaint about credentials.
+The editor needs to operate in "code" mode, the tree mode does not seem to work properly. If you need to play around, and the editor gets in a bad state, just re-load the page.  You will lose your edits, as it re-reads the CSV file. You can have a public account or your account can have users.
 
 ###Next version:<br/>
 
