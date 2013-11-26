@@ -21,7 +21,7 @@ Comments
   The web app makes use of the Ace Editor, this allows for changes to the imported JSON.  The code does a
   decent job reading and parsing the CSV, thanks to ya-csv.  However, UserGrid is a little picky.  As an 
   example, you might see an element as follows:
-
+<pre>
   [
    {
 	"foo": "bar",
@@ -29,21 +29,21 @@ Comments
 	"next": "element"
    }
   ]
+</pre>
 This will "JSONLint" just fine, but will not load.  From testing, elements like:
+<pre>
 		"": "",
+</pre>
 seem to cause an issue loading. So, for now, either remove those records, or add some data to 
 load the complete document.
 
 Known Issues:
 
-The editor needs to operate in "code" mode, the tree mode does not seem to work properly. If you need to 
-play around, and the editor gets in a bad state, just re-load the page.  You will lose your edits, as it re-reads
-the CSV file.
+The editor needs to operate in "code" mode, the tree mode does not seem to work properly. If you need to play around, and the editor gets in a bad state, just re-load the page.  You will lose your edits, as it re-reads the CSV file. You can have a public account or your account can have users.  If you require a login, be sure to check the login required check box. I always jack up my password, to the ability to toggle the password to plain text was added if there is a complaint about credentials.
 
 Next version:
 
-I will add some upload diagnostics, better feedback on the upload, and I need to see if there will be any support
-for the App. 
+I will add some upload diagnostics, better feedback on the upload, and I need to see if there will be any support for the App. 
 
 Credits:
 
